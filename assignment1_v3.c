@@ -27,20 +27,24 @@ int main(int argc, char *argv[])
       printf("fork() error!");
 
     } else if (pid == 0) {
-      time(&currtime);
-      fprintf(LOGFILE, "[%s]", ctime(&currtime));
-      fclose(LOGFILE)
-  
-      //sprintf(cmdline, "kill $(pgrep %s)", procname);
       sprintf(cmdline, "pgrep %s", procname);
       printf("%s\n", cmdline);
       pp = popen(cmdline, "r");
 
       while (fscanf(pp, "%d", &procid) != EOF) {
+	time(&currtime);
+	fprintf(LOGFILE, "[%s] Info: Initializing monitoring process %s (PID %d)\n", ctime(&currtime), procname, procid);
+	fclose(LOGFILE);
+
 	kill(procid, SIGKILL);
       }
 
+      /*while (fscanf(pp, "%d", &procid) != EOF) {
+	kill(procid, SIGKILL);
+	}*/
+
       kill(pid, SIGKILL); // kill child
+
     } else {
       
       printf("Parent process\n");

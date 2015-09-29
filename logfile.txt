@@ -1,4 +1,4 @@
-Mon Sep 28 23:00:40 2015
-
-Mon Sep 28 23:00:40 2015
-
+[Mon Sep 28 23:42:14 2015
+] Info: Initializing monitoring process testrunprog (PID 21948)
+[Mon Sep 28 23:42:14 2015
+] Info: Initializing monitoring process vim (PID 21963)
