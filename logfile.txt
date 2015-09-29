@@ -1,2 +1,6 @@
-[Tue Sep 29 13:14:32 2015
-] Info: Initializing monitoring process testrunprog (PID 2443)
+[Tue Sep 29 13:54:43 2015
+] Info: Initializing monitoring process testrunprog (PID 2925)
+[Tue Sep 29 13:54:43 2015
+] Info: Initializing monitoring process vim (PID 2837)
+[Tue Sep 29 13:54:43 2015
+] Info: Initializing monitoring process vim (PID 2918)

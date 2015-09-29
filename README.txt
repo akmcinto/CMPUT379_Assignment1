@@ -5,3 +5,4 @@ http://www.tutorialspoint.com/c_standard_library/c_function_sprintf.htm, 2015-09
 http://stackoverflow.com/questions/8653921/how-to-give-arguments-to-kill-via-pipe, Daniel Persson, 2015-09-28
 http://stackoverflow.com/questions/13273836/how-to-kill-child-of-fork, md5, 2015-09-28
 http://www.tutorialspoint.com/c_standard_library/c_function_ctime.htm, 2015-09-28
+http://stackoverflow.com/questions/2708477/fork-and-wait-with-two-child-processes, Jonathan Leffler, 2015-09-29

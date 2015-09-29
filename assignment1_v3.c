@@ -1,5 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <signal.h>
 #include <time.h>
 
@@ -8,6 +10,7 @@ int main(int argc, char *argv[])
   FILE *LOGFILE = fopen("./logfile.txt", "w");
   // Open file
   FILE *f = fopen(argv[1], "r");
+  int status;
   // Array for holding each line of the file read in
   char procname[255]; // for saving read from file
   char cmdline[269]; // for creating pgrep command (255 plus extra for command)
@@ -22,33 +25,37 @@ int main(int argc, char *argv[])
   while (fscanf(f, "%s", procname) != EOF) {
     // Find PIDs for the program
     sprintf(cmdline, "pgrep %s", procname);
-    printf("%s\n", cmdline);
     pp = popen(cmdline, "r");
 
     while (fscanf(pp, "%d", &procid) != EOF) {
 
       if ((pid = fork()) < 0) {
 	printf("fork() error!");
-      } else if (pid == 0) {  // Child process
-
+      } 
+      else if (pid == 0) {  // Child process
 	// Initialize monitoring in log file
 	time(&currtime);
 	fprintf(LOGFILE, "[%s] Info: Initializing monitoring process %s (PID %d)\n", ctime(&currtime), procname, procid);
 	fclose(LOGFILE);
-
 	// Kill monitored process
 	kill(procid, SIGKILL);
-	// Kill child process
-	kill(pid, SIGKILL); 
+	exit(7);       
+	fclose(LOGFILE); 
+      } 
+      else {
 	
-      } else {
-      
-	printf("Parent process\n");
-      
+	printf("Parent process\n"); 
       }
+
+      while (wait(&status) != pid) {
+	//printf("wait error");
+	;
+      }
+      kill(pid, SIGTERM);
       
     }
-    fclose(LOGFILE); 
+
+    
   }
   
   return 0;
