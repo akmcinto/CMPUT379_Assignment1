@@ -3,8 +3,6 @@
 #include <signal.h>
 #include <time.h>
 
-
-
 int main(int argc, char *argv[])
 {
   FILE *LOGFILE = fopen("./logfile.txt", "w");
@@ -22,35 +20,35 @@ int main(int argc, char *argv[])
   fscanf(f, "%i", &numSeconds);
 
   while (fscanf(f, "%s", procname) != EOF) {
-    
-    if ((pid = fork()) < 0) {
-      printf("fork() error!");
+    // Find PIDs for the program
+    sprintf(cmdline, "pgrep %s", procname);
+    printf("%s\n", cmdline);
+    pp = popen(cmdline, "r");
 
-    } else if (pid == 0) {
-      sprintf(cmdline, "pgrep %s", procname);
-      printf("%s\n", cmdline);
-      pp = popen(cmdline, "r");
+    while (fscanf(pp, "%d", &procid) != EOF) {
 
-      while (fscanf(pp, "%d", &procid) != EOF) {
+      if ((pid = fork()) < 0) {
+	printf("fork() error!");
+      } else if (pid == 0) {  // Child process
+
+	// Initialize monitoring in log file
 	time(&currtime);
 	fprintf(LOGFILE, "[%s] Info: Initializing monitoring process %s (PID %d)\n", ctime(&currtime), procname, procid);
 	fclose(LOGFILE);
 
+	// Kill monitored process
 	kill(procid, SIGKILL);
-      }
-
-      /*while (fscanf(pp, "%d", &procid) != EOF) {
-	kill(procid, SIGKILL);
-	}*/
-
-      kill(pid, SIGKILL); // kill child
-
-    } else {
+	// Kill child process
+	kill(pid, SIGKILL); 
+	
+      } else {
       
-      printf("Parent process\n");
+	printf("Parent process\n");
+      
+      }
       
     }
-
+    fclose(LOGFILE); 
   }
   
   return 0;
