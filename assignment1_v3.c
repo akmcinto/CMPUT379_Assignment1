@@ -4,6 +4,7 @@
 #include <sys/wait.h>
 #include <signal.h>
 #include <time.h>
+#include <string.h>
 
 int main(int argc, char *argv[])
 {
@@ -36,7 +37,7 @@ int main(int argc, char *argv[])
       else if (pid == 0) {  // Child process
 	// Initialize monitoring in log file
 	time(&currtime);
-	fprintf(LOGFILE, "[%23s] Info: Initializing monitoring process %s (PID %d)\n", ctime(&currtime), procname, procid);
+	fprintf(LOGFILE, "[%.*s] Info: Initializing monitoring process %s (PID %d)\n", (int) strlen(ctime(&currtime))-1, ctime(&currtime), procname, procid);
 	
 	fflush(LOGFILE);
 	// Wait for amount of time
@@ -46,7 +47,8 @@ int main(int argc, char *argv[])
 	int killed = kill(procid, SIGKILL);
 	// If the process is actually killed, print to log
 	if (killed == 0) {
-	  fprintf(LOGFILE, "[%s] Action: PID %d (%s) killed after exceeding %d seconds\n", ctime(&currtime), procid, procname, numsecs);
+	  time(&currtime);
+	  fprintf(LOGFILE, "[%.*s] Action: PID %d (%s) killed after exceeding %d seconds\n", (int) strlen(ctime(&currtime))-1, ctime(&currtime), procid, procname, numsecs);
 	}
 	fflush(LOGFILE);
 	exit(7);       
