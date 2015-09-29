@@ -6,3 +6,4 @@ http://stackoverflow.com/questions/8653921/how-to-give-arguments-to-kill-via-pip
 http://stackoverflow.com/questions/13273836/how-to-kill-child-of-fork, md5, 2015-09-28
 http://www.tutorialspoint.com/c_standard_library/c_function_ctime.htm, 2015-09-28
 http://stackoverflow.com/questions/2708477/fork-and-wait-with-two-child-processes, Jonathan Leffler, 2015-09-29
+http://pubs.opengroup.org/onlinepubs/009695399/functions/kill.html, 2015-09-29

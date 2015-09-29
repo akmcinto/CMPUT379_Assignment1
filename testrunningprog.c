@@ -1,4 +1,4 @@
 int main() {
-  sleep(500);
+  sleep(15);
   return 0;
 }
