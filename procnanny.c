@@ -8,11 +8,14 @@
 #include <unistd.h>
 #include "memwatch.h"
 
+void killprevprocnanny( void );
+
 int main(int argc, char *argv[])
 {
   mwInit();
 
-  FILE *LOGFILE = fopen("./logfile.txt", "w");
+  char *logloc = getenv("PROCNANNYLOGS");
+  FILE *LOGFILE = fopen(logloc, "w");
   // Open file
   FILE *f = fopen(argv[1], "r");
   int status = 0;
@@ -24,8 +27,11 @@ int main(int argc, char *argv[])
   FILE *pp;
   pid_t procid;
   time_t currtime;
-  pid_t childpids[255];
+  pid_t childpids[128];
   int childcount = 0;
+
+  // kill any other procnannies
+  killprevprocnanny();
   
   fscanf(f, "%i", &numsecs);
 
@@ -85,4 +91,23 @@ int main(int argc, char *argv[])
   fclose(LOGFILE); 
   mwTerm();
   return 0;
+}
+
+// kill any previous instances of procnanny
+void killprevprocnanny() {
+  char pgrepcmd[20]; // for creating pgrep command (255 plus extra for command)
+  FILE *pni;
+  pid_t procnanid;
+  pid_t mypid = getpid();
+
+  // Find PIDs for the program
+  sprintf(pgrepcmd, "pgrep %s", "procnanny");
+  pni = popen(pgrepcmd, "r");
+  
+  while (fscanf(pni, "%d", &procnanid) != EOF) {
+    if (procnanid != mypid) {
+      kill(procnanid, SIGKILL);
+    }
+  }
+  return;
 }

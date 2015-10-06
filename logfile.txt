@@ -1,7 +1,4 @@
-[Tue Sep 29 16:17:43 2015] Info: Initializing monitoring process vim (PID 4659)
-[Tue Sep 29 16:17:43 2015] Info: Initializing monitoring process vim (PID 4703)
-[Tue Sep 29 16:17:43 2015] Info: Initializing monitoring process vim (PID 4705)
-[Tue Sep 29 16:17:58 2015] Action: PID 4705 (vim) killed after exceeding 15 seconds
-[Tue Sep 29 16:17:43 2015] Info: Exiting. 3 process(es) killed.
-[Tue Sep 29 16:17:58 2015] Action: PID 4703 (vim) killed after exceeding 15 seconds
-[Tue Sep 29 16:17:58 2015] Action: PID 4659 (vim) killed after exceeding 15 seconds
+[Mon Oct  5 21:21:27 2015] Info: Initializing monitoring process testrunprog (PID 3472)
+[Mon Oct  5 21:21:27 2015] Info: Initializing monitoring process vim (PID 3473)
+[Mon Oct  5 21:21:27 2015] Info: Exiting. 2 process(es) killed.
+[Mon Oct  5 21:21:47 2015] Action: PID 3473 (vim) killed after exceeding 20 seconds
