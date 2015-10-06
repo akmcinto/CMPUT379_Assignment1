@@ -1,4 +1,6 @@
-[Wed Dec 31 17:04:00 1969] Info: No 'testrunprog' process found.
-[Mon Oct  5 22:43:12 2015] Info: Initializing monitoring process vim (PID 3770)
-[Mon Oct  5 22:43:12 2015] Info: Exiting. 1 process(es) killed.
-[Mon Oct  5 22:43:32 2015] Action: PID 3770 (vim) killed after exceeding 20 seconds
+[Mon Oct  5 23:41:45 2015] Info: No 'testrunprog' process found.
+[Mon Oct  5 23:41:45 2015] Info: Initializing monitoring process vim (PID 4095)
+[Mon Oct  5 23:41:45 2015] Info: Initializing monitoring process vim (PID 4096)
+[Mon Oct  5 23:41:45 2015] Info: Exiting. 2 process(es) killed.
+[Mon Oct  5 23:42:05 2015] Action: PID 4096 (vim) killed after exceeding 20 seconds
+[Mon Oct  5 23:42:05 2015] Action: PID 4095 (vim) killed after exceeding 20 seconds

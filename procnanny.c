@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
       else if (pid == 0) {  // Child process
 	// Wait for amount of time
 	sleep(numsecs);
-
+	
 	// Kill monitored process
 	int killed = kill(procid, SIGKILL);
 	// If the process is actually killed, print to log
@@ -78,7 +78,9 @@ int main(int argc, char *argv[])
       }      
     }
     if (entered == 0) {
+      time(&currtime);
       fprintf(LOGFILE, "[%.*s] Info: No '%s' process found.\n", (int) strlen(ctime(&currtime))-1, ctime(&currtime), procname);
+      fflush(LOGFILE);
     }
   }
   
@@ -89,6 +91,7 @@ int main(int argc, char *argv[])
     }
   }
 
+  time(&currtime);
   fprintf(LOGFILE, "[%.*s] Info: Exiting. %d process(es) killed.\n", (int) strlen(ctime(&currtime))-1, ctime(&currtime), childcount);
 
   //kill(pid, SIGTERM);
