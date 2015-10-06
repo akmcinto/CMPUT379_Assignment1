@@ -29,6 +29,8 @@ int main(int argc, char *argv[])
   time_t currtime;
   pid_t childpids[128];
   int childcount = 0;
+  // Check if there were actually any process with that name
+  int entered; 
 
   // kill any other procnannies
   killprevprocnanny();
@@ -40,12 +42,14 @@ int main(int argc, char *argv[])
     sprintf(cmdline, "pgrep %s", procname);
     pp = popen(cmdline, "r");
 
+    entered = 0;
     while (fscanf(pp, "%d", &procid) != EOF) {
-      
+      entered = 1;
+
       // Initialize monitoring in log file
       time(&currtime);
       fprintf(LOGFILE, "[%.*s] Info: Initializing monitoring process %s (PID %d)\n", (int) strlen(ctime(&currtime))-1, ctime(&currtime), procname, procid);
-	
+      
       fflush(LOGFILE);
 
       if ((pid = fork()) < 0) {
@@ -67,13 +71,15 @@ int main(int argc, char *argv[])
 	exit(7);       
 	
       } 
-      else {
+      else { // parent process
 	childpids[childcount] = pid;
-	//printf("%d\n", childpids[childcount]);
 	childcount++;
 	continue; 
       }      
-    }  
+    }
+    if (entered == 0) {
+      fprintf(LOGFILE, "[%.*s] Info: No '%s' process found.\n", (int) strlen(ctime(&currtime))-1, ctime(&currtime), procname);
+    }
   }
   
   int i;
