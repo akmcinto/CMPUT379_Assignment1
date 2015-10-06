@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
   FILE *LOGFILE = fopen(logloc, "w");
   // Open file
   FILE *f = fopen(argv[1], "r");
-  int *status = 0;
+  int status = 0;
   // Array for holding each line of the file read in
   char procname[255]; // for saving read from file
   char cmdline[269]; // for creating pgrep command (255 plus extra for command)
@@ -29,6 +29,7 @@ int main(int argc, char *argv[])
   time_t currtime;
   pid_t childpids[128];
   int childcount = 0;
+  int killcount = 0;
   // Check if there were actually any process with that name
   int entered; 
 
@@ -66,15 +67,16 @@ int main(int argc, char *argv[])
 	if (killed == 0) {
 	  time(&currtime);
 	  fprintf(LOGFILE, "[%.*s] Action: PID %d (%s) killed after exceeding %d seconds\n", (int) strlen(ctime(&currtime))-1, ctime(&currtime), procid, procname, numsecs);
+	  fflush(LOGFILE);
+	  exit(7); 
 	}
-	fflush(LOGFILE);
-	exit(7);       
-	
+	else {
+	  exit(8);
+	}	
       } 
       else { // parent process
 	childpids[childcount] = pid;
 	childcount++;
-	//continue; 
       }      
     }
     // end of pid while loop
@@ -87,14 +89,14 @@ int main(int argc, char *argv[])
   // end of proc name while loop
   int i;
   for (i = 0; i < childcount; i++) {
-    /*if (wait(&status) == childpids[i]) {
-      ;
-      }*/
-    waitpid(childpids[i], status, 0);
+    waitpid(childpids[i], &status, 0);
+    if (WEXITSTATUS(status) == 7) {
+      killcount++;
+    }
   }
 
   time(&currtime);
-  fprintf(LOGFILE, "[%.*s] Info: Exiting. %d process(es) killed.\n", (int) strlen(ctime(&currtime))-1, ctime(&currtime), childcount);
+  fprintf(LOGFILE, "[%.*s] Info: Exiting. %d process(es) killed.\n", (int) strlen(ctime(&currtime))-1, ctime(&currtime), killcount);
 
   //kill(pid, SIGTERM);
   
