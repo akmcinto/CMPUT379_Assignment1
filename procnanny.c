@@ -14,9 +14,10 @@ int main(int argc, char *argv[])
 {
   mwInit();
 
+  // Log file
   char *logloc = getenv("PROCNANNYLOGS");
   FILE *LOGFILE = fopen(logloc, "w");
-  // Open file
+  // Open input file
   FILE *f = fopen(argv[1], "r");
   int status = 0;
   // Array for holding each line of the file read in

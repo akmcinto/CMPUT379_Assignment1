@@ -34,3 +34,4 @@ Tereus Scott, http://stackoverflow.com/questions/9101590/how-to-fprintf-and-ctim
 http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/, 2015-10-05
 http://man7.org/linux/man-pages/man2/wait.2.html, 2015-10-06
 http://linux.die.net/man/2/waitpid, 2015-10-06
+http://www.cprogramming.com/tutorial/makefiles.html, 2015-10-06

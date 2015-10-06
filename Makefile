@@ -3,4 +3,4 @@ procnanny: procnanny.c
 
 .PHONY: clean
 clean:
-	-rm -f ./*.o procnanny ./*~
+	-rm -f procnanny *.o core
