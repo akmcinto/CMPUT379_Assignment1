@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
   FILE *LOGFILE = fopen(logloc, "w");
   // Open file
   FILE *f = fopen(argv[1], "r");
-  int status = 0;
+  int *status = 0;
   // Array for holding each line of the file read in
   char procname[255]; // for saving read from file
   char cmdline[269]; // for creating pgrep command (255 plus extra for command)
@@ -74,21 +74,23 @@ int main(int argc, char *argv[])
       else { // parent process
 	childpids[childcount] = pid;
 	childcount++;
-	continue; 
+	//continue; 
       }      
     }
+    // end of pid while loop
     if (entered == 0) {
       time(&currtime);
       fprintf(LOGFILE, "[%.*s] Info: No '%s' process found.\n", (int) strlen(ctime(&currtime))-1, ctime(&currtime), procname);
       fflush(LOGFILE);
     }
   }
-  
+  // end of proc name while loop
   int i;
   for (i = 0; i < childcount; i++) {
-    if (wait(&status) != childpids[i]) {
+    /*if (wait(&status) == childpids[i]) {
       ;
-    }
+      }*/
+    waitpid(childpids[i], status, 0);
   }
 
   time(&currtime);
