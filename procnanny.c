@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
 
       // Initialize monitoring in log file
       time(&currtime);
-      fprintf(LOGFILE, "[%.*s] Info: Initializing monitoring process %s (PID %d)\n", (int) strlen(ctime(&currtime))-1, ctime(&currtime), procname, procid);
+      fprintf(LOGFILE, "[%.*s] Info: Initializing monitoring of process %s (PID %d).\n", (int) strlen(ctime(&currtime))-1, ctime(&currtime), procname, procid);
       
       fflush(LOGFILE);
 
@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
 	// If the process is actually killed, print to log
 	if (killed == 0) {
 	  time(&currtime);
-	  fprintf(LOGFILE, "[%.*s] Action: PID %d (%s) killed after exceeding %d seconds\n", (int) strlen(ctime(&currtime))-1, ctime(&currtime), procid, procname, numsecs);
+	  fprintf(LOGFILE, "[%.*s] Action: PID %d (%s) killed after exceeding %d seconds.\n", (int) strlen(ctime(&currtime))-1, ctime(&currtime), procid, procname, numsecs);
 	  fflush(LOGFILE);
 	  exit(7); 
 	}
@@ -113,6 +113,7 @@ void killprevprocnanny() {
   FILE *pni;
   pid_t procnanid;
   pid_t mypid = getpid();
+  int killval;
 
   // Find PIDs for the program
   sprintf(pgrepcmd, "pgrep %s", "procnanny");
@@ -120,7 +121,10 @@ void killprevprocnanny() {
   
   while (fscanf(pni, "%d", &procnanid) != EOF) {
     if (procnanid != mypid) {
-      kill(procnanid, SIGKILL);
+      killval = kill(procnanid, SIGKILL);
+      if (killval != 0) {
+	printf("Failed to kill old procnanny process.\n");
+      }
     }
   }
   return;

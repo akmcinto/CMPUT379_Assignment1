@@ -1,10 +1,8 @@
-[Tue Oct  6 16:43:58 2015] Info: Initializing monitoring process testrunprog (PID 4016)
-[Tue Oct  6 16:43:58 2015] Info: Initializing monitoring process testrunprog (PID 4020)
-[Tue Oct  6 16:43:58 2015] Info: Initializing monitoring process vim (PID 4017)
-[Tue Oct  6 16:43:58 2015] Info: Initializing monitoring process vim (PID 4018)
-[Tue Oct  6 16:43:58 2015] Info: Initializing monitoring process vim (PID 4019)
-[Tue Oct  6 16:44:08 2015] Action: PID 4020 (testrunprog) killed after exceeding 10 seconds
-[Tue Oct  6 16:44:08 2015] Action: PID 4019 (vim) killed after exceeding 10 seconds
-[Tue Oct  6 16:44:08 2015] Action: PID 4018 (vim) killed after exceeding 10 seconds
-[Tue Oct  6 16:44:08 2015] Action: PID 4017 (vim) killed after exceeding 10 seconds
-[Tue Oct  6 16:44:08 2015] Info: Exiting. 4 process(es) killed.
+[Tue Oct  6 22:43:16 2015] Info: No 'firefox' process found.
+[Tue Oct  6 22:43:16 2015] Info: No 'testrunprog' process found.
+[Tue Oct  6 22:43:16 2015] Info: No 'vim' process found.
+[Tue Oct  6 22:43:16 2015] Info: Initializing monitoring of process emacs (PID 5078).
+[Tue Oct  6 22:43:16 2015] Info: Initializing monitoring of process mousepad (PID 5069).
+[Tue Oct  6 22:43:46 2015] Action: PID 5078 (emacs) killed after exceeding 30 seconds.
+[Tue Oct  6 22:43:46 2015] Action: PID 5069 (mousepad) killed after exceeding 30 seconds.
+[Tue Oct  6 22:43:46 2015] Info: Exiting. 2 process(es) killed.
