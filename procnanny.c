@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 
   while (fscanf(f, "%s", procname) != EOF) {
     // Find PIDs for the program
-    sprintf(cmdline, "pgrep %s", procname);
+    sprintf(cmdline, "ps -C %s -o pid=", procname);
     pp = popen(cmdline, "r");
 
     entered = 0;
